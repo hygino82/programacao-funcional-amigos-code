@@ -4,6 +4,7 @@ import static imperactive.Main.Gender.FEMALE;
 import static imperactive.Main.Gender.MALE;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class Main {
@@ -33,8 +34,10 @@ public class Main {
 
         //declarative approach
         System.out.println("\nDeclarative Approach");
+        Predicate<Person> personPredicate = person -> FEMALE.equals(person.gender);
+        
         var females2 = people.stream()
-                .filter(person -> FEMALE.equals(person.gender))
+                .filter(personPredicate)
                 .collect(Collectors.toList());
         females2.forEach(System.out::println);
     }
