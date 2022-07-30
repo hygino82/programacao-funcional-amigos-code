@@ -1,5 +1,6 @@
 package fucntionalinterface;
 
+import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class _Consumer {
@@ -9,8 +10,11 @@ public class _Consumer {
        
        //normal Java function
        greetCustomer(dilma);
+       greetCustomerV2(dilma, false);
        //Consumer Functional interface
        greetCustomerConsumer.accept(dilma);
+       greetCustomerConsumerV2.accept(dilma, false);
+       
        
     }
 
@@ -18,11 +22,24 @@ public class _Consumer {
         System.out.printf("Hello %s, thanks for registering phone number %s\n", customer.customerName, customer.customerPhoneNumber);
     }
     
+    static void greetCustomerV2(Customer customer, boolean showPhoneNumber) {
+        System.out.println(
+                    "Hello " + customer.customerName
+                    + ", thanks for registering phone number "
+                    + (showPhoneNumber ? customer.customerPhoneNumber : "******"));
+    }
+    
     static Consumer<Customer> greetCustomerConsumer = customer ->
              System.out.println(
                     "Hello " + customer.customerName
                     + ", thanks for registering phone number "
                     + customer.customerPhoneNumber);
+    
+    static BiConsumer<Customer, Boolean> greetCustomerConsumerV2 = (customer, showPhoneNumber) ->
+             System.out.println(
+                    "Hello " + customer.customerName
+                    + ", thanks for registering phone number "
+                    + (showPhoneNumber ? customer.customerPhoneNumber : "******"));
             
 
     static class Customer {
