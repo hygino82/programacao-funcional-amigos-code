@@ -3,6 +3,7 @@ package streams;
 import java.util.List;
 import java.util.function.Function;
 import java.util.function.IntConsumer;
+import java.util.function.Predicate;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import static streams._Stream.Gender.FEMALE;
@@ -24,10 +25,19 @@ public class _Stream {
         ToIntFunction<String> length = String::length;
         IntConsumer println = System.out::println;//x -> System.out.println(x)
         
-        people.stream()
+        /*people.stream()
                 .map(personStringFunction)
                 .mapToInt(length)
-                .forEach(println);
+                .forEach(println);*/
+        Predicate<Person> personPredicate = person -> PREFER_NOT_SAY.equals(person.gender);
+        
+        boolean containsOnlyFemales = people.stream()
+                .noneMatch(personPredicate);
+                //não tem alguma pessoa que que informou o gênero
+                //.anyMatch(personPredicate);//tem alguma mulher
+                //.allMatch(personPredicate);//todos são mulheres
+        
+        System.out.println(containsOnlyFemales);
     }
     
     static class Person {
