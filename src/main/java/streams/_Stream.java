@@ -2,6 +2,7 @@ package streams;
 
 import java.util.List;
 import java.util.function.Function;
+import java.util.function.IntConsumer;
 import java.util.function.ToIntFunction;
 import java.util.stream.Collectors;
 import static streams._Stream.Gender.FEMALE;
@@ -20,15 +21,13 @@ public class _Stream {
         );
         
         Function<Person, String> personStringFunction = person -> person.name;
-        ToIntFunction<String> lenght = String::length;
-    
-        people.stream()
-                .map(person -> person.name)
-                .mapToInt(String::length)//name -> name.length()
-                //.collect(Collectors.toSet())
-                .forEach(System.out::println);
+        ToIntFunction<String> length = String::length;
+        IntConsumer println = System.out::println;//x -> System.out.println(x)
         
-        //System.out.println(genders);
+        people.stream()
+                .map(personStringFunction)
+                .mapToInt(length)
+                .forEach(println);
     }
     
     static class Person {
